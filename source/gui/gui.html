@@ -1,0 +1,37 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>Bar chart with D3.js</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script src="api-d3.js"></script>
+</head>
+<body>
+<div id='layout'>
+    <div id="barchart">
+        <svg />
+    </div>
+</div>
+
+</body>
+    <script>
+        let criteria = {
+            categoryId: 0,
+            startDate: "2022-01-01",
+            endDate: "2022-03-01"
+        };
+        d3.request("http://localhost:8080/api/products/get-trend-products")
+            .header("Content-Type", "application/json")
+            .post(JSON.stringify(criteria), function (error, data) {
+                if (data != null) {
+                    let trendProducts = JSON.parse(data.response);
+                    displayTrendProductsBarChart(trendProducts);
+                }
+            });
+
+    </script>
+</html>
